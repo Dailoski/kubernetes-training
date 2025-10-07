@@ -1,0 +1,5 @@
+CREATE TABLE IF NOT EXISTS Tasks(
+    Id SERIAL PRIMARY KEY,
+    Description TEXT,
+    Completed BOOLEAN DEFAULT FALSE
+)

@@ -1,0 +1,18 @@
+@Todos.Api_HostAddress = http://localhost:8080
+
+GET {{Todos.Api_HostAddress}}/api/ping
+Accept: application/json
+
+###
+
+POST {{Todos.Api_HostAddress}}/api/tasks
+Content-Type: application/json
+{
+  "description": "Learn Docker",
+  "completed": false
+}
+
+###
+
+GET {{Todos.Api_HostAddress}}/api/tasks
+Accept: application/json
