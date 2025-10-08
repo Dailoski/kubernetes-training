@@ -8,7 +8,6 @@ In this exercise, you will build a Docker image for the `Todos.Api`, push it to 
 - [kubectl](https://kubernetes.io/docs/tasks/tools/) installed and configured  
 - AWS CLI configured with permissions to ECR  
 - A running Kubernetes cluster (Docker Desktop, Minikube, k3s, or kind)  
-- Access to the `todos-with-postgres` repository  
 
 ## Instructions
 
@@ -18,6 +17,11 @@ Navigate to the `Todos.Api` folder:
 
 ~~~bash
 cd todos-with-postgres/Todos.Api
+~~~
+
+Create Dockerfire:
+~~~bash
+vim Dockerfile
 ~~~
 
 Build the Docker image:
@@ -58,19 +62,6 @@ docker tag todos-api:latest <your-account-id>.dkr.ecr.<your-region>.amazonaws.co
 docker push <your-account-id>.dkr.ecr.<your-region>.amazonaws.com/todos-api:latest
 ~~~
 
-### 3. Deploy Postgres
-
-Apply the provided Kubernetes manifest:
-
-~~~bash
-kubectl apply -f todos-with-postgres/k8s-manifests/postgres.yaml
-~~~
-
-Verify the Pod is running:
-
-~~~bash
-kubectl get pods
-~~~
 
 ### 4. Deploy the Todos API
 
@@ -96,15 +87,6 @@ spec:
           image: <your-account-id>.dkr.ecr.<your-region>.amazonaws.com/todos-api:latest
           ports:
             - containerPort: 8080
-          env:
-            - name: POSTGRES_HOST
-              value: postgres
-            - name: POSTGRES_USER
-              value: postgres
-            - name: POSTGRES_PASSWORD
-              value: postgres
-            - name: POSTGRES_DB
-              value: todos
 ---
 apiVersion: v1
 kind: Service
@@ -132,45 +114,20 @@ kubectl get pods
 kubectl get svc
 ~~~
 
-> Note the NodePort assigned to the service. You can access the API at `http://<node-ip>:<node-port>`.
 
 ### 5. Test the Todos API
 
-Use `curl` to add a new task:
+Create port forwarding and check the resource:
 
 ~~~bash
-curl -X POST -H "Content-Type: application/json" \
--d '{"description": "Learn Kubernetes", "completed": false}' \
-http://localhost:8080/api/tasks
+visit http://localhost:8080/api/ping
 ~~~
 
-Check that the task was added by retrieving all tasks:
-
-~~~bash
-curl http://localhost:8080/api/tasks
-~~~
-
----
 
 ## Optional Exercises
 
-- Scale the API Deployment to multiple replicas:
+- Add you name as env variable and check url again.
 
-~~~bash
-kubectl scale deployment todos-api --replicas=3
-~~~
-
-- Update the API image and do a rolling update.  
-- Deploy a LoadBalancer service if using a cloud provider.  
-- Explore the logs of the API Pod:
-
-~~~bash
-kubectl logs <todos-api-pod-name>
-~~~
-
-- Try deleting the Postgres Pod and see how Kubernetes recovers it.  
-
----
 
 ## Summary
 
@@ -178,8 +135,6 @@ In this exercise, you learned how to:
 
 - Build a Docker image and push it to AWS ECR.  
 - Deploy a database using a Kubernetes manifest.  
-- Deploy an application connecting to Postgres.  
-- Access and test the application API using `curl`.  
 - Use Kubernetes Deployment and Service resources to manage an app.  
 
 For more information:
