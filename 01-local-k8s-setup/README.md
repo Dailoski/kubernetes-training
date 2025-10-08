@@ -1,4 +1,4 @@
-# Exercise 0: Setting Up Your Local Kubernetes Environment
+# Exercise 1: Setting Up Your Local Kubernetes Environment
 
 Before running workloads on Kubernetes, you need a cluster and the right tools to interact with it. In this exercise, you will set up a local Kubernetes cluster, install required CLI tools, and verify access.
 
