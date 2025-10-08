@@ -1,4 +1,4 @@
-# Exercise 2: Build, Push, and Deploy Todos API with Kubernetes
+# Exercise 5: Build, Push, and Deploy Todos API with Kubernetes
 
 In this exercise, you will build a Docker image for the `Todos.Api`, push it to AWS ECR, deploy Postgres, deploy the API on Kubernetes, and interact with the API using `curl`.
 

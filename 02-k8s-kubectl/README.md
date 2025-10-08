@@ -1,4 +1,4 @@
-# Exercise 1: Run a Pod from an Image on Docker Hub
+# Exercise 2: Run a Pod from an Image on Docker Hub
 
 In this exercise, we will run a Kubernetes Pod from an existing image hosted on Docker Hub.
 
